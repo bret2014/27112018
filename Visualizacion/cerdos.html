@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Animales</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
+<link href="css/jquery.ennui.contentslider.css" rel="stylesheet" type="text/css" media="screen,projection" />
+</head>
+<body>
+<div id="templatemo_menu_wrapper">
+    <div id="templatemo_menu">
+        <ul>
+            <li><a href="index.html" class="current">Home</a></li>
+            <li><a href="perros.html">Perros</a></li>
+            <li><a href="gatos.html">Gatos</a></li>
+            <li><a href="cerdos.html">Cerdos</a></li>
+			<li><a href="estadisticagatos.html">Estadística</a></li>
+        </ul>    	
+    </div> <!-- end of templatemo_menu -->
+</div> <!-- end of menu wrapper -->
+
+<div id="templatemo_header_wrapper">
+  <div id="templatemo_header">
+    <div id="site_title">
+      <h1>Arquitectura</h1>
+    </div>
+    <div id="templatemo_slider">
+      <div id="one" class="contentslider">
+        <div class="cs_wrapper">
+        
+          <div class="cs_slider">
+          
+                <div class="cs_article"> 
+                    <a href="#"> 
+                    <img src="images/arquitectura.png" alt="Project 1" /></a> 
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div> 
+
+		
+<h1>Cerdos</h1>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  
+    <script src="https://www.google.com/jsapi"></script>
+    <script>
+
+        var public_key = 'dZ4EVmE8yGCRGx5XRX1W';
+
+        var jsonData = $.ajax({
+          url: 'http://localhost:5984/harvestcerdo/_all_docs/?limit=100&include_docs=true',
+          //url: 'http://127.0.0.1:5984/test/_all_docs?include_docs=true&conflicts=true',
+          data: {page: 1},
+          dataType: 'json',
+        }).done(function (results) {
+
+
+       var count=results.total_rows;
+         
+
+          for(var i=0;i<count; i++){
+            
+            var user=results.rows[i].doc.user.screen_name;
+            var name=results.rows[i].doc.user.name;
+
+            var texttweet=results.rows[i].doc.text;
+            var fecha=results.rows[i].doc.created_at;
+            var foto=results.rows[i].doc.user.profile_image_url_https;
+            var fondo=results.rows[i].doc.user.profile_background_image_url_https;
+            var otros=results.rows[i].doc.user.friends_count;
+			
+			
+
+
+      console.log(user);
+      console.log(texttweet);
+      
+      document.getElementById("tweet").innerHTML += "<tr>"+
+	  
+                                                        "<td><img src="+foto+"></td>"+
+                                                        "<td>"+user+"<br>"+name+"</td>"+
+                                                        "<td background="+fondo+">"+texttweet+"</td>"+
+                                                        "<td>"+fecha+"</td>"+
+                                                       
+									
+                                                    "</tr>";      
+        }
+      });
+
+    </script>
+
+  </head>
+  <body>
+    
+    
+
+<div class="container">
+<table class="table table-bordered" > 
+<thead>
+      <tr>
+        <th>Foto</th> 
+        <th>Usuario</th>
+        <th>Tweet</th>
+        <th>Fecha</th>
+        
+        
+      </tr>
+    <tbody id="tweet">  
+    </tbody>
+  </table>
+</div>
+        
+   
+</body>
+</html>
